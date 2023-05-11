@@ -7,26 +7,34 @@ if [ "$EUID" -ne 0 ]
 fi
 
 usage() {
-    echo "Usage: $0 -s SERVER_NAME -p PORT_NUMBER"
+    echo "Usage: $0 -s SERVER_NAME -p PORT_NUMBER -n SERVICE_NAME"
     echo "  -s: The server name (domain or IP) for the reverse proxy."
     echo "  -p: The port number on which the proxy will run."
+    echo "  -n: The unique name for the service."
     exit 1
 }
 
-while getopts ":s:p:" opt; do
+while getopts ":s:p:n:" opt; do
     case $opt in
         s) server_name="$OPTARG" ;;
         p) port_number="$OPTARG" ;;
+        n) service_name="$OPTARG" ;;
         *) usage ;;
     esac
 done
 
-if [ -z "$server_name" ] || [ -z "$port_number" ]; then
+if [ -z "$server_name" ] || [ -z "$port_number" ] || [ -z "$service_name" ]; then
     usage
 fi
 
 # Create an Nginx reverse proxy configuration
-config_file="/etc/nginx/sites-available/reverse-proxy-$server_name.conf"
+config_file="/etc/nginx/sites-available/reverse-proxy-$service_name.conf"
+
+# Check if the same file already exists
+if [ -f "$config_file" ]; then
+    echo "Error: Configuration file $config_file already exists. Please specify a unique service name."
+    exit 1
+fi
 
 cat > $config_file <<EOL
 server {
@@ -50,4 +58,4 @@ ln -s $config_file /etc/nginx/sites-enabled/
 systemctl daemon-reload
 systemctl restart nginx
 
-echo "Reverse proxy for $server_name on port $port_number has been set up."
+echo "Reverse proxy for $service_name on server $server_name on port $port_number has been set up."
