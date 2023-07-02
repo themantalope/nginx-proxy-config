@@ -12,8 +12,8 @@ usage() {
     echo "  -p: The port number on which the proxy will run."
     echo "  -h: Display this help message."
     echo "  -f: Force HTTPS redirection."
-    echo "  -le: Use Let's Encrypt to generate a certificate."
-    echo "  -ba: Use basic authentication."
+    echo "  -l: Use Let's Encrypt to generate a certificate."
+    echo "  -b: Use basic authentication."
     echo "  -e: Email address for Let's Encrypt."
     exit 1
 }
@@ -24,8 +24,8 @@ while getopts ":s:p:" opt; do
         p) port_number="$OPTARG" ;;
         h) usage ;;
         f) force_https=true ;;
-        le) use_letsencrypt=true ;;
-        ba) use_basic_auth=true ;;
+        l) use_letsencrypt=true ;;
+        b) use_basic_auth=true ;;
         e) email="$OPTARG" ;;
         *) usage ;;
     esac
