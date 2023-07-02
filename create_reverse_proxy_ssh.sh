@@ -65,7 +65,7 @@ fi
 # ba_str=""
 if [ "$use_basic_auth" = true ]; then
     ba_str="auth_basic \"Restricted Content\";
-    auth_basic_user_file /etc/apache2/.htpasswd;"
+    \tauth_basic_user_file /etc/apache2/.htpasswd;"
 else
     ba_str=""
 fi
@@ -82,7 +82,6 @@ server {
         proxy_set_header X-Real-IP \$remote_addr;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto \$scheme;
-        $redirect_str
     }
 }
 EOL
@@ -102,7 +101,6 @@ server {
         proxy_set_header X-Real-IP \$remote_addr;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto \$scheme;
-        $redirect_str
     }
 }
 EOL
