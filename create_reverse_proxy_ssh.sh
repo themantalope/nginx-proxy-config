@@ -18,7 +18,8 @@ usage() {
     exit 1
 }
 
-while getopts ":s:p:" opt; do
+while getopts ":s:p:f:l:h:b:e:" opt; do
+    echo "opt: $opt, OPTARG: $OPTARG"
     case $opt in
         s) server_name="$OPTARG" ;;
         p) port_number="$OPTARG" ;;
@@ -26,7 +27,6 @@ while getopts ":s:p:" opt; do
         l) use_letsencrypt=true ;;
         b) use_basic_auth=true ;;
         e) email="$OPTARG" ;;
-        *) usage ;;
         h) usage ;;
     esac
 done
