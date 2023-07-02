@@ -31,15 +31,26 @@ while getopts ":s:p:" opt; do
     esac
 done
 
-if [ -z "$server_name" ] || [ -z "$port_number" ]; then
-    usage
-fi
+
 
 if [ "$use_letsencrypt" = true ] || [ "$use_basic_auth"=true ] || [ "$force_https"=true ]; then
     echo "You have specified that you would like to use services which require HTTPS."
     echo "Automatically setting the -le flag to true."
     use_letsencrypt=true
 fi
+
+# print all the arguments to the command line
+echo "server_name: $server_name"
+echo "port_number: $port_number"
+echo "force_https: $force_https"
+echo "use_letsencrypt: $use_letsencrypt"
+echo "use_basic_auth: $use_basic_auth"
+echo "email: $email"
+
+if [ -z "$server_name" ] || [ -z "$port_number" ]; then
+    usage
+fi
+
 
 # Create an Nginx reverse proxy configuration
 config_file="/etc/nginx/sites-available/reverse-proxy-$server_name.conf"
