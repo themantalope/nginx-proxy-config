@@ -22,12 +22,12 @@ while getopts ":s:p:" opt; do
     case $opt in
         s) server_name="$OPTARG" ;;
         p) port_number="$OPTARG" ;;
-        h) usage ;;
         f) force_https=true ;;
         l) use_letsencrypt=true ;;
         b) use_basic_auth=true ;;
         e) email="$OPTARG" ;;
         *) usage ;;
+        h) usage ;;
     esac
 done
 
