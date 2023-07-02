@@ -64,8 +64,8 @@ fi
 
 # ba_str=""
 if [ "$use_basic_auth" = true ]; then
-    ba_str="auth_basic \"Restricted Content\";
-    \tauth_basic_user_file /etc/apache2/.htpasswd;"
+    ba_str="auth_basic \"Restricted Content\";"
+    ba_uf_str="auth_basic_user_file /etc/apache2/.htpasswd;"
 else
     ba_str=""
 fi
@@ -77,6 +77,7 @@ server {
 
     location / {
         $ba_str
+        $ba_uf_str
         proxy_pass http://localhost:$port_number;
         proxy_set_header Host \$host;
         proxy_set_header X-Real-IP \$remote_addr;
@@ -96,6 +97,7 @@ server {
 
     location / {
         $ba_str
+        $ba_uf_str
         proxy_pass http://localhost:$port_number;
         proxy_set_header Host \$host;
         proxy_set_header X-Real-IP \$remote_addr;
