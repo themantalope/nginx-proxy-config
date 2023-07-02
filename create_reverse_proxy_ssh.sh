@@ -18,7 +18,7 @@ usage() {
     exit 1
 }
 
-while getopts ":s:p:f:l:h:b:e:" opt; do
+while getopts ":s:p:flbe:h" opt; do
     echo "opt: $opt, OPTARG: $OPTARG"
     case $opt in
         s) server_name="$OPTARG" ;;
