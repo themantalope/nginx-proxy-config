@@ -68,6 +68,7 @@ if [ "$use_basic_auth" = true ]; then
     ba_uf_str="auth_basic_user_file /etc/apache2/.htpasswd;"
 else
     ba_str=""
+    ba_uf_str=""
 fi
 
 if [ "$use_letsencrypt" = true ] ; then
