@@ -7,7 +7,7 @@ if [ "$EUID" -ne 0 ]
 fi
 
 usage() {
-    echo "Usage: $0 -s SERVER_NAME -p PORT_NUMBER"
+    echo "Usage: $0 [-s SERVER_NAME] [-p PORT_NUMBER] [-f] [-le] [-ba] [-e EMAIL]"
     echo "  -s: The server name for the reverse proxy."
     echo "  -p: The port number on which the proxy will run."
     echo "  -h: Display this help message."
